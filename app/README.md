@@ -19,5 +19,8 @@ to this in your browser, and you can call your Go code from devtools.
 To build a redistributable, production mode package, use `wails build`.
 
 
-# 项目框架
+##  项目框架
 wails + gin + vue
+
+## 开发启动
+wails dev

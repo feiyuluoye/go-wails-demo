@@ -1,6 +1,7 @@
 <script setup>
 import {reactive} from 'vue'
 import {Greet} from '../../wailsjs/go/main/App'
+import axios from 'axios';
 
 const data = reactive({
   name: "",
@@ -12,6 +13,19 @@ function greet() {
     data.resultText = result
   })
 }
+function getAPI(){
+    axios.post('http://localhost:8080/api/data', {
+        name: 'Wails and Gin',
+        description: 'Integration demo'
+      })
+      .then(response => {
+        console.log(response.data);
+        data.resultText = response.data
+      })
+      .catch(error => {
+        console.error("Error posting data:", error);
+      });
+}
 
 </script>
 
@@ -21,6 +35,7 @@ function greet() {
     <div id="input" class="input-box">
       <input id="name" v-model="data.name" autocomplete="off" class="input" type="text"/>
       <button class="btn" @click="greet">Greet</button>
+      <button class="btn" @click="getAPI">GetAPI</button>
     </div>
   </main>
 </template>
@@ -30,6 +45,7 @@ function greet() {
   height: 20px;
   line-height: 20px;
   margin: 1.5rem auto;
+  color: #333333;
 }
 
 .input-box .btn {
@@ -41,6 +57,7 @@ function greet() {
   margin: 0 0 0 20px;
   padding: 0 8px;
   cursor: pointer;
+  background-color: #333333;
 }
 
 .input-box .btn:hover {
